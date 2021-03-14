@@ -1,6 +1,6 @@
 .DS_Store
 # Ignore Terraform stuff
-.terraform
+.terraform*
 *.tfstate
 *.tfstate.backup
 *.tfstate.lock.info
