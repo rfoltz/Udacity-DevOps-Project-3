@@ -11,6 +11,7 @@ variable "location" {
   default     = "eastus"
   type        = string
 }
+
 variable "prefix" {
   description = "Prefix of all the resources"
   default     = "udacity-project3"

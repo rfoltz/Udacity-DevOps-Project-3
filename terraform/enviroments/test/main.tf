@@ -14,8 +14,16 @@ terraform {
     key                  = "" # use terraform init -backend-config "key=PASTE YOUR KEY HERE or Use an enviroment variable"
   }
 }
+
+# start the module building
 module "resource_group" {
     source               = "../../modules/resource_group"
-    resource_group       = var.prefix
+    resource_group       = "${var.prefix}-rg" # personally this is how I like to have my stuff with pre-defined tags on the end for consistentcy
     location             = var.location
+}
+module "virtual_network" {
+  source                 = "../../modules/networking/virtualnetwork"
+  prefix                 = var.prefix
+  resource_group         = module.resource_group.resource_group_name # Use the name that was output by the resource group module
+  location               = var.location
 }
