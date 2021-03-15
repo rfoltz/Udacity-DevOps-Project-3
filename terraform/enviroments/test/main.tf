@@ -17,9 +17,9 @@ terraform {
 
 # start the module building
 module "resource_group" {
-    source               = "../../modules/resource_group"
-    resource_group       = "${var.prefix}-rg" # personally this is how I like to have my stuff with pre-defined tags on the end for consistentcy
-    location             = var.location
+  source               = "../../modules/resource_group"
+  resource_group       = "${var.prefix}-rg" # personally this is how I like to have my stuff with pre-defined tags on the end for consistentcy
+  location             = var.location
 }
 module "virtual_network" {
   source                 = "../../modules/networking/virtualnetwork"
@@ -27,3 +27,11 @@ module "virtual_network" {
   resource_group         = module.resource_group.resource_group_name # Use the name that was output by the resource group module
   location               = var.location
 }
+module "security_group" {
+  source                  = "../../modules/networking/securitygroup"
+  prefix                  = var.prefix
+  resource_group          = module.resource_group.resource_group_name
+  location                = var.location
+  subnet_id               = module.virtual_network.subnet_id
+  subnet_address_prefixes = module.virtual_network.subnet_address_prefixes
+} 
