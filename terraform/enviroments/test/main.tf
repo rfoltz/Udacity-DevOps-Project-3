@@ -34,4 +34,10 @@ module "security_group" {
   location                = var.location
   subnet_id               = module.virtual_network.subnet_id
   subnet_address_prefixes = module.virtual_network.subnet_address_prefixes
-} 
+}
+module "app_service" {
+  source                  = "../../modules/appservice"
+  prefix                  = var.prefix
+  resource_group          = module.resource_group.resource_group_name
+  location                = var.location
+}
