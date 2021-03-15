@@ -7,3 +7,4 @@
 
 #ignore secrets
 terraform.tfvars
+init_terraform.sh

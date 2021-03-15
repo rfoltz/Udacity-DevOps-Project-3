@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "terraform"
     storage_account_name = "tstate6853"
     container_name       = "tstate"
-    key                  = "" # use enviroment variables or terraform init -backend-config "key=YOUR KEY HERE"
+    key                  = "" # use terraform init -backend-config "key=PASTE YOUR KEY HERE or Use an enviroment variable"
   }
 }
 module "resource_group" {
