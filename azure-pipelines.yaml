@@ -17,9 +17,7 @@ stages:
         secureFile: 'terraform.tfvars'
     
     - bash: |
-        pwd
-        ls $(System.DefaultWorkingDirectory)
-        echo $(tfvars.secureFilePath)
+        sudo chown root:root $(tfvars.secureFilePath)
         cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars
       displayName: Copy terraform.tfvars File
 
