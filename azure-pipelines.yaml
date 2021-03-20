@@ -1,10 +1,6 @@
 trigger:
 - master
 
-variables:
-  name: destroy
-  value: false
-
 stages:
 - stage: "Create_Infrastructure"
   jobs:
@@ -108,89 +104,49 @@ stages:
               package: $(Pipeline.Workspace)/fakerestapi/fakerestapi-$(Build.BuildId).zip
               deploymentMethod: zipDeploy
 
-
-- stage: "Destroy_Infrastructure"
-  jobs:
-  - job: provision
-    displayName: 'Provision Infrastructure'
-    pool:
-      vmimage: 'ubuntu-18.04'
-    steps:
-    
-    - task: DownloadSecureFile@1
-      displayName: Download Terraform Variables file
-      name: tfvars
-      inputs:
-        secureFile: 'terraform.tfvars'
-    
-    - script: |
-        sudo cp $(tfvars.secureFilePath) terraform/environments/test/terraform.tfvars
-      displayName: Copy terraform.tfvars File
-      
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: '0.14.8'
-
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        backendServiceArm: 'terraform-sa'
-        backendAzureRmResourceGroupName: 'terraform'
-        backendAzureRmStorageAccountName: 'tstate6853'
-        backendAzureRmContainerName: 'tstate'
-        backendAzureRmKey: 'terraform.state'
-
-    ${{ if eq(variables.destroy, true) }}:
-      - task: TerraformTaskV1@0
-        inputs:
-          provider: 'azurerm'
-          command: 'destroy'
-          commandOptions: |
-            -auto-approve 
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-          environmentServiceNameAzureRM: 'terraform-sa'
-
-# - stage: Build
+# TODO: Uncomment at final stage of project
+# - stage: "Destroy_Infrastructure"
 #   jobs:
-#   - job: Build
+#   - job: provision
+#     displayName: 'Provision Infrastructure'
 #     pool:
-#       vmImage: 'ubuntu-18.04'
+#       vmimage: 'ubuntu-18.04'
 #     steps:
-#     # Needed for Terraform VM deployment
-#     # - task: InstallSSHKey@0
-#     #   inputs:
-#     #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-#     #     sshPublicKey: 'PUBLIC_KEY'
-#     #     sshKeySecureFile: 'id_rsa'
-#     - task: ArchiveFiles@2
-#       displayName: 'Archive FakeRestAPI'
+    
+#     - task: DownloadSecureFile@1
+#       displayName: Download Terraform Variables file
+#       name: tfvars
 #       inputs:
-#         rootFolderOrFile: 'path/to/fakerestapi'
-#         includeRootFolder: false
-#         archiveType: 'zip'
-#         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-#     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-#       displayName: 'Upload Package'
-#       artifact: drop-fakerestapi
-# - stage:
-#   jobs:
-#   - deployment: FakeRestAPI
-#     pool:
-#       vmImage: 'Ubuntu-18.04'
-#     environment: 'TEST'
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: AzureWebApp@1
-#             displayName: 'Deploy Azure Web App'
-#             inputs:
-#               azureSubscription: ''
-#               appName: ''
-#               appType: webApp
-#               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+#         secureFile: 'terraform.tfvars'
+    
+#     - script: |
+#         sudo cp $(tfvars.secureFilePath) terraform/environments/test/terraform.tfvars
+#       displayName: Copy terraform.tfvars File
+      
+#     - task: TerraformInstaller@0
+#       inputs:
+#         terraformVersion: '0.14.8'
+
+#     - task: TerraformTaskV1@0
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+#         backendServiceArm: 'terraform-sa'
+#         backendAzureRmResourceGroupName: 'terraform'
+#         backendAzureRmStorageAccountName: 'tstate6853'
+#         backendAzureRmContainerName: 'tstate'
+#         backendAzureRmKey: 'terraform.state'
+
+#     - task: TerraformTaskV1@0
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'destroy'
+#         commandOptions: |
+#           -auto-approve 
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+#         environmentServiceNameAzureRM: 'terraform-sa'
+
   # - deployment: VMDeploy
   #   displayName: NAME
   #   environment:
