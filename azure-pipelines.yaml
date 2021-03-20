@@ -1,6 +1,10 @@
 trigger:
 - master
 
+variables:
+  name: destroy
+  value: false
+
 stages:
 - stage: "Create_Infrastructure"
   jobs:
