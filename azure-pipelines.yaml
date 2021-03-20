@@ -28,7 +28,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environemnts/test/'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         backendServiceArm: 'terraform-sa'
         backendAzureRmResourceGroupName: 'terraform'
         backendAzureRmStorageAccountName: 'tstate6853'
@@ -39,6 +39,8 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
+        commandOptions: |
+          -auto-approve 
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         environmentServiceNameAzureRM: 'terraform-sa'
 
