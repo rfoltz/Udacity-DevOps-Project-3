@@ -19,27 +19,28 @@ stages:
     - script: |
         sudo cp $(tfvars.secureFilePath) terraform/environments/test/terraform.tfvars
       displayName: Copy terraform.tfvars File
-
-    - task: TerraformInstaller@0
+      
+    - task: CmdLine@2
       displayName: Install Terraform
       inputs:
-        terraformVersion: '0.14.8'
+        script: |
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt install terraform=0.14.8
 
-    - task: TerraformTaskV1@0
+    - task: CmdLine@2
       displayName: Terraform Init
       inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        script: |
+          terraform init
+        workingDirectory: terraform/environments/test/
 
-    - task: TerraformTaskV1@0
+    - task: CmdLine@2
       displayName: Terraform Apply
       inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        commandOptions: |
-          -auto-approve 
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        script: |
+          terraform apply -auto-approve
+        workingDirectory: terraform/environments/test/
 
 # - stage: Build
 #   jobs:
