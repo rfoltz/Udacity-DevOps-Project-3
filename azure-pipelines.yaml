@@ -2,7 +2,7 @@ trigger:
 - master
 
 stages:
-- stage: Create Infrastructure
+- stage: "Create Infrastructure"
   jobs:
   - job: provision
     displayName: 'Provision Infrastructure'
