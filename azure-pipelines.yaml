@@ -80,7 +80,7 @@ stages:
     - task: TerraformTaskV1@0
       inputs:
         provider: 'azurerm'
-        command: 'destory'
+        command: 'destroy'
         commandOptions: |
           -auto-approve 
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
