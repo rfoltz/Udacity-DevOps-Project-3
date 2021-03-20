@@ -139,14 +139,14 @@ stages:
         backendAzureRmKey: 'terraform.state'
 
     ${{ if eq(parameters.destrory, true) }}:
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-        command: 'destroy'
-        commandOptions: |
-          -auto-approve 
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        environmentServiceNameAzureRM: 'terraform-sa'
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'destroy'
+          commandOptions: |
+            -auto-approve 
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+          environmentServiceNameAzureRM: 'terraform-sa'
 
 # - stage: Build
 #   jobs:
