@@ -98,7 +98,7 @@ stages:
           - task: AzureWebApp@1
             displayName: Deploy Azure WebApp
             inputs:
-              azureSubscription: 'terraform-sa
+              azureSubscription: 'terraform-sa'
               appName: 'udacity-project3-app'
               appType: webApp
               package: $(Pipeline.Workspace)/fakerestapi/fakerestapi-$(Build.BuildId).zip
