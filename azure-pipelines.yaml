@@ -20,28 +20,27 @@ stages:
         sudo cp $(tfvars.secureFilePath) terraform/environments/test/terraform.tfvars
       displayName: Copy terraform.tfvars File
       
-    - task: CmdLine@2
-      displayName: Install Terraform
+    - task: TerraformInstaller@0
       inputs:
-        script: |
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-          sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          sudo apt install terraform=0.14.8
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'Personal Azure subscription(d5e2b852-260c-4bdf-befb-9803d0d29cde)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'terraform init'
-        workingDirectory: terraform/environments/test/
+        terraformVersion: '0.14.8'
 
-    - task: AzureCLI@2
+    - task: TerraformTaskV1@0
       inputs:
-        azureSubscription: 'Personal Azure subscription(d5e2b852-260c-4bdf-befb-9803d0d29cde)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'terraform apply -auto-approve'
-        workingDirectory: terraform/environments/test/
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environemnts/test/'
+        backendServiceArm: 'terraform-sa'
+        backendAzureRmResourceGroupName: 'terraform'
+        backendAzureRmStorageAccountName: 'tstate6853'
+        backendAzureRmContainerName: 'tstate'
+        backendAzureRmKey: 'terraform.state'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        environmentServiceNameAzureRM: 'terraform-sa'
 
 # - stage: Build
 #   jobs:
