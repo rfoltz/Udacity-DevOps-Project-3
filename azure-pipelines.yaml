@@ -84,6 +84,27 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'selenium'
 
+- stage: Deploy
+  jobs:
+  - deployment: deploy_fakerestapi
+    displayName: Deploy FakeRestAPI
+    pool:
+      vmImage: 'ubuntu-18.04'
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: Deploy Azure WebApp
+            inputs:
+              azureSubscription: 'azurerm-sc'
+              appName: 'udacity-project3-app'
+              appType: webApp
+              package: $(Pipeline.Workspace)/fakerestapi/fakerestapi-$(Build.BuildId).zip
+              deploymentMethod: zipDeploy
+
+
 - stage: "Destroy_Infrastructure"
   jobs:
   - job: provision
