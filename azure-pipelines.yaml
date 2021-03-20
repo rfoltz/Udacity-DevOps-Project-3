@@ -21,10 +21,12 @@ stages:
       displayName: Copy terraform.tfvars File
       
     - task: TerraformInstaller@0
+      displayName: Install Terraform
       inputs:
         terraformVersion: '0.14.8'
 
     - task: TerraformTaskV1@0
+      displayName: Terraform Init
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -36,6 +38,7 @@ stages:
         backendAzureRmKey: 'terraform.state'
 
     - task: TerraformTaskV1@0
+      displayName: Terraform Apply
       inputs:
         provider: 'azurerm'
         command: 'apply'
@@ -43,6 +46,43 @@ stages:
           -auto-approve 
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         environmentServiceNameAzureRM: 'terraform-sa'
+
+- stage: Build
+  jobs:
+  - job: build_artifacts
+    displayName: Build Artifacts
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - task: ArchiveFiles@2
+      displayName: Archive FakeRestAPI
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
+        verbose: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish FakeRestAPI artifact
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
+        artifactName: 'fakerestapi'
+
+    - task: ArchiveFiles@2
+      displayName: Archive Selenium
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
+        verbose: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Selenium artifact
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
+        artifactName: 'selenium'
 
 - stage: "Destroy_Infrastructure"
   jobs:
