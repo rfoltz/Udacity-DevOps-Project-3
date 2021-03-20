@@ -12,11 +12,12 @@ stages:
     
     - task: DownloadSecureFile@1
       displayName: Download Terraform Variables file
+      name: tfvars
       inputs:
         secureFile: 'terraform.tfvars'
     
     - bash: |
-        cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
+        cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test
       displayName: Copy terraform.tfvars File
 
     - task: TerraformInstaller@0
