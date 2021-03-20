@@ -138,7 +138,7 @@ stages:
         backendAzureRmContainerName: 'tstate'
         backendAzureRmKey: 'terraform.state'
 
-    ${{ if eq(parameters.destroy, true) }}:
+    ${{ if eq(variables.destroy, true) }}:
       - task: TerraformTaskV1@0
         inputs:
           provider: 'azurerm'
