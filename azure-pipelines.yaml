@@ -17,6 +17,7 @@ stages:
         secureFile: 'terraform.tfvars'
     
     - bash: |
+        ls $(System.DefaultWorkingDirectory)
         cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test
       displayName: Copy terraform.tfvars File
 
