@@ -17,8 +17,7 @@ stages:
         secureFile: 'terraform.tfvars'
     
     - bash: |
-        sudo chown root:root $(tfvars.secureFilePath)
-        cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars
+        sudo cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars
       displayName: Copy terraform.tfvars File
 
     - task: TerraformInstaller@0
