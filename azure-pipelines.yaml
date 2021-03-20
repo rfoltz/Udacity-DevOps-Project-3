@@ -1,12 +1,5 @@
 trigger:
-  branches:
-  include:
-  - master
-
-name: Azure Pipelines
-variables:
-  python.version: '3.7.6'
-
+- master
 
 stages:
 - stage: Create Infrastructure
