@@ -27,19 +27,20 @@ stages:
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
           sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
           sudo apt install terraform=0.14.8
-
-    - task: CmdLine@2
-      displayName: Terraform Init
+    - task: AzureCLI@2
       inputs:
-        script: |
-          terraform init
+        azureSubscription: 'Personal Azure subscription(d5e2b852-260c-4bdf-befb-9803d0d29cde)'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'terraform init'
         workingDirectory: terraform/environments/test/
 
-    - task: CmdLine@2
-      displayName: Terraform Apply
+    - task: AzureCLI@2
       inputs:
-        script: |
-          terraform apply -auto-approve
+        azureSubscription: 'Personal Azure subscription(d5e2b852-260c-4bdf-befb-9803d0d29cde)'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'terraform apply -auto-approve'
         workingDirectory: terraform/environments/test/
 
 # - stage: Build
