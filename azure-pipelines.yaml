@@ -19,7 +19,7 @@ stages:
     - bash: |
         ls $(System.DefaultWorkingDirectory)
         echo $(tfvars.secureFilePath)
-        cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test/
+        cp $(tfvars.secureFilePath) $(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfvars
       displayName: Copy terraform.tfvars File
 
     - task: TerraformInstaller@0
