@@ -9,7 +9,7 @@ def print_log(text):
     print('{0} - {1}').format(timestamp, text)
 
 #setup the driver and navigate to the demo website
-def driver_setup(wesbite)
+def driver_setup(wesbite):
     print_log("Starting the chrome browser")
     options = ChromeOptions()
     options.add_argument("--headless") 
