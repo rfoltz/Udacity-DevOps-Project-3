@@ -9,3 +9,6 @@
 terraform.tfvars
 init_terraform.sh
 sp_creds.txt
+
+#test outputs
+output

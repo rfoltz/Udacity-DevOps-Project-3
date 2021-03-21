@@ -131,7 +131,7 @@ stages:
         targetType: 'inline'
         script: |
           newman run automatedtesting/postman/DummyRestAPI_Regression.postman_collection.json \
-           -e  automatedtesting/postman/DummyEnv.postman_environment.json \
+           --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --bail \
            --delay-request 5000 \
            --reporters cli,json --reporter-json-export output/newman/regression.json
@@ -142,7 +142,7 @@ stages:
         targetType: 'inline'
         script: |
           newman run automatedtesting/postman/DummyRestAPI_Validate.postman_collection.json \
-           -e  automatedtesting/postman/DummyEnv.postman_environment.json \
+           --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --bail \
            --delay-request 5000 \
            --reporters cli,json --reporter-json-export output/newman/validation.json
