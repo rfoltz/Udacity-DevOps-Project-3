@@ -36,7 +36,7 @@ def add_cart(driver, n_items):
         product = driver.find_element_by_css_selector("div[class='inventory_details_name']").text  # Get the name of the product from the page
         print_log("{0} added to shopping cart.".format(product))  # Display message saying which product was added
         driver.find_element_by_css_selector("button.inventory_details_back_button").click()  # Click the Back button
-    print_log("{0} items are all added to shopping cart successfully.".format(n_items))
+    print_log("{0} items are all added to shopping cart successfully".format(n_items))
 
 def remove_cart(driver, n_items):
     for i in range(n_items):
@@ -46,7 +46,7 @@ def remove_cart(driver, n_items):
         product = driver.find_element_by_css_selector("div[class='inventory_details_name']").text
         print_log("{0} removed from shopping cart.".format(product))  # Display message saying which product was added
         driver.find_element_by_css_selector("button.inventory_details_back_button").click()
-    print_log("{0} items are all removed from shopping cart successfully."format(n_items))
+    print_log("{0} items are all removed from shopping cart successfully".format(n_items))
 
 if __name__ == "__main__":
     items = 6
