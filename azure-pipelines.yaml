@@ -132,7 +132,7 @@ stages:
         script: |
           newman run automatedtesting/postman/DummyRestAPI_Regression.postman_collection.json \
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
-           --bail \
+           --suppress-exit-code \
            --delay-request 5000 \
            --reporters cli,json --reporter-json-export output/newman/regression.json
     
@@ -143,7 +143,7 @@ stages:
         script: |
           newman run automatedtesting/postman/DummyRestAPI_Validate.postman_collection.json \
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
-           --bail \
+           --suppress-exit-code \
            --delay-request 5000 \
            --reporters cli,json --reporter-json-export output/newman/validation.json
 
