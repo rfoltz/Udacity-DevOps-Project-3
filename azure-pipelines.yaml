@@ -209,6 +209,7 @@ stages:
                 ls -la
                 sudo mkdir -p /var/log/selenium
                 sudo chmod 664 /var/log/selenium
+                sudo chown root:root test.py
                 sudo chmod a+rx test.py
                 ls -la
                 sudo python3 -u test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
