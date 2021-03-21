@@ -12,7 +12,9 @@ def print_log(text):
 def driver_setup(wesbite):
     print_log("Starting the chrome browser")
     options = ChromeOptions()
-    options.add_argument("--headless") 
+    options.add_argument('--no-sandbox')
+    options.add_argument("--headless")
+    options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(options=options)
     print_log("Browser started successfully.")
     driver.get(website)
