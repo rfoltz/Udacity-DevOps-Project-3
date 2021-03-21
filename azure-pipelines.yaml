@@ -113,23 +113,26 @@ stages:
       runOnce:
         deploy:
           steps:
-          - bash: |
-              pwd
-              hostname
-              sudo apt-get install software-properties-common -y
-              sudo apt-add-repository universe -y
-              sudo apt-get update -y
-              sudo apt-get install python3-pip -y
-              sudo apt-get install unzip -y
-              sudo apt-get install -y chromium-browser
-              sudo apt-get install -y chromium-chromedriver
-              python3 -m pip install --upgrade pip
-              pip3 install selenium
-              python3 -V
-              pip3 -V
-              /usr/bin/chromium-browser --version
-              /usr/bin/chromedriver --version
+          - task: Bash@3
             displayName: Configure selenium
+            inputs:
+              targetType: 'inline'
+              script: |
+                pwd
+                hostname
+                sudo apt-get install software-properties-common -y
+                sudo apt-add-repository universe -y
+                sudo apt-get update -y
+                sudo apt-get install python3-pip -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                sudo apt-get install -y chromium-chromedriver
+                python3 -m pip install --upgrade pip
+                pip3 install selenium
+                python3 -V
+                pip3 -V
+                /usr/bin/chromium-browser --version
+                /usr/bin/chromedriver --version
 
 
 
@@ -185,6 +188,39 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Integration Test Results'
 
+  - deployment: test_vm
+    displayName: Deploy Selenium Test to VM
+    environment:
+      name: 'TEST'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            displayName: Run Selenium Tests
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd $(Pipeline.Workspace)/selenium
+                find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete  # delete everything except 'selenium-$(Build.BuildId).zip'
+                unzip -o selenium-$(Build.BuildId).zip
+                pwd
+                ls -la
+                sudo mkdir -p /var/log/selenium
+                sudo chmod 664 /var/log/selenium
+                sudo python3 -u test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
+                # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
+                cd $(System.DefaultWorkingDirectory)
+                mkdir -p log/selenium
+                pwd
+                sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+                ls -la
+          - task: PublishPipelineArtifact@1
+            displayName: Publish selenium logs
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
+              artifactName: 'drop-selenium-logs'
 # TODO: Uncomment at final stage of project
 # - stage: "Destroy_Infrastructure"
 #   jobs:
