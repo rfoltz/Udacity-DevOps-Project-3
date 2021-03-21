@@ -249,7 +249,7 @@ stages:
           script: |
             apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/stress-test.jmx \
                                      -l log/jmeter/stress-test-result.csv \
-                                     -e -f -o log/jmeter/stress-test-html-report \
+                                     -e -f -o log/jmeter/stress-test-report.html \
                                      -j log/jmeter/jmeter-stress-test.log
       - task: Bash@3
         displayName: Run Endurance Test
@@ -258,7 +258,7 @@ stages:
           script: |
             apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/endurance-test.jmx \
                                      -l log/jmeter/endurance-test-result.csv \
-                                     -e -f -o log/jmeter/endurance-test-html-report \
+                                     -e -f -o log/jmeter/endurance-test-report.html \
                                      -j log/jmeter/jmeter-endurance-test.log
       
       - task: ArchiveFiles@2
