@@ -24,7 +24,7 @@ def driver_setup(website):
 def login (driver, user, password):
     print_log("Logging in")
     driver.find_element_by_id("user-name").send_keys(user)
-    driver.find_element_by_id("password").send_keys(user)
+    driver.find_element_by_id("password").send_keys(password)
     driver.find_element_by_id("login-button").click()
     product_label = driver.find_element_by_css_selector("div[class='product_label']").text
     assert "Products" in product_label
