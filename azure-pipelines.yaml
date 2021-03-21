@@ -134,7 +134,7 @@ stages:
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --suppress-exit-code \
            --delay-request 5000 \
-           --reporters cli,json --reporter-json-export output/newman/regression.json
+           --reporters cli,junit --reporter-junit-export output/newman/regression.xml
     
     - task: Bash@3
       displayName: Run Data Validation Tests
@@ -145,8 +145,16 @@ stages:
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --suppress-exit-code \
            --delay-request 5000 \
-           --reporters cli,json --reporter-json-export output/newman/validation.json
-
+           --reporters cli,junit --reporter-junit-export output/newman/validation.xml
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish Integration Test Results'
+      inputs:
+        testRunner: 'JUnit'
+        searchFolder: '$(System.DefaultWorkingDirectory)/output/newman/'
+        testResultsFiles: '*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Integration Test Results'
 
 # TODO: Uncomment at final stage of project
 # - stage: "Destroy_Infrastructure"
