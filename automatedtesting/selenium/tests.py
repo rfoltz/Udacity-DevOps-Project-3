@@ -6,7 +6,7 @@ import datetime
 #function to log text with a timestamp
 def print_log(text):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print('{0} - {1}').format(timestamp, text)
+    print("{0} - {1}".format(timestamp, text))
 
 #setup the driver and navigate to the demo website
 def driver_setup(wesbite):
