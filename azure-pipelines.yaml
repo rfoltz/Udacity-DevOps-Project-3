@@ -189,7 +189,7 @@ stages:
         testRunTitle: 'Integration Test Results'
 
   - deployment: test_vm
-    displayName: Deploy Selenium Test to VM
+    displayName: Deploy and Run Selenium Tests
     environment:
       name: 'TEST'
       resourceType: VirtualMachine
@@ -209,6 +209,8 @@ stages:
                 ls -la
                 sudo mkdir -p /var/log/selenium
                 sudo chmod 664 /var/log/selenium
+                sudo chmod a+rx test.py
+                ls -la
                 sudo python3 -u test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
                 # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
                 cd $(System.DefaultWorkingDirectory)
