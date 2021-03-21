@@ -54,8 +54,8 @@ if __name__ == "__main__":
     items = 6
     driver = driver_setup("https://www.saucedemo.com/")
     login(driver, "standard_user", "secret_sauce")
-    add_cart(driver, N_ITEMS)
-    remove_cart(driver, N_ITEMS)
+    add_cart(driver, items)
+    remove_cart(driver, items)
     print_log("Tests Completed")
 
 
