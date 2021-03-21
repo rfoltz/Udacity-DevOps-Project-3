@@ -19,7 +19,7 @@
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">2</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">0</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">2</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -159,7 +159,7 @@
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Book IDs" enabled="true">
         <stringProp name="delimiter">/</stringProp>
         <stringProp name="fileEncoding"></stringProp>
-        <stringProp name="filename">C:/Users/Robert/Documents/Projects/Udacity/DevOps/Project3/Udacity-DevOps-Project-3/automatedtesting/jmeter/book_ids.csv</stringProp>
+        <stringProp name="filename">automatedtesting/jmeter/book_ids.csv</stringProp>
         <boolProp name="ignoreFirstLine">true</boolProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
