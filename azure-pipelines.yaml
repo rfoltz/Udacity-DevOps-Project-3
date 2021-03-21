@@ -278,16 +278,15 @@ stages:
           archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report-$(Build.BuildId).zip'
           verbose: true
       - task: Bash@3
-          displayName: Clean Up Tests
-          inputs:
-            targetType: 'inline'
-            script: |
-              rm -rf log/jmeter/stress-test-html-report
-              rm -rf log/jmeter/endurance-test-html-report
-              cd log/jmeter
-              pwd
-              ls -la
-        displayName: Delete original JMeter test HTML reports
+        displayName: Clean Up Tests
+        inputs:
+          targetType: 'inline'
+          script: |
+            rm -rf log/jmeter/stress-test-html-report
+            rm -rf log/jmeter/endurance-test-html-report
+            cd log/jmeter
+            pwd
+            ls -la
       - task: PublishPipelineArtifact@1
         displayName: Publish JMeter logs
         inputs:
