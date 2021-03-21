@@ -133,7 +133,7 @@ stages:
           newman run automatedtesting/postman/DummyRestAPI_Regression.postman_collection.json \
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --suppress-exit-code \
-           --delay-request 45000 \
+           --delay-request 5000 \
            --reporters cli,junit --reporter-junit-export output/newman/regression.xml
     
     - task: Bash@3
@@ -144,7 +144,7 @@ stages:
           newman run automatedtesting/postman/DummyRestAPI_Validate.postman_collection.json \
            --environment automatedtesting/postman/DummyEnv.postman_environment.json \
            --suppress-exit-code \
-           --delay-request 4500 \
+           --delay-request 5000 \
            --reporters cli,junit --reporter-junit-export output/newman/validation.xml
     
     - task: PublishTestResults@2
