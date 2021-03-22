@@ -215,12 +215,12 @@ stages:
                 cd $(System.DefaultWorkingDirectory)
                 mkdir -p log/selenium
                 pwd
-                sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+                sudo cp '/var/log/selenium/selenium-test-$(Build.BuildId).log' 'log/selenium/selenium-test-$(Build.BuildId).log'
                 ls -la
           - task: PublishPipelineArtifact@1
             displayName: Publish selenium logs
             inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
+              targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test-$(Build.BuildId).log'
               artifactName: 'selenium-logs'
   
   - job: jmeter_tests
