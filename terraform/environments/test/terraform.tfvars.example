@@ -1,0 +1,5 @@
+subscription_id ="GUID"
+client_id       ="GUID"
+client_secret   ="GUID"
+tenant_id       ="GUID"
+vm_password     ="Your Password Here"

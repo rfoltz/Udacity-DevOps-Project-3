@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "terraform"
     storage_account_name = "tstate6853"
     container_name       = "tstate"
-    key                  = "terraform.state" # use terraform init -backend-config "key=PASTE YOUR KEY HERE or Use an enviroment variable"
+    key                  = "terraform.state"
   }
 }
 

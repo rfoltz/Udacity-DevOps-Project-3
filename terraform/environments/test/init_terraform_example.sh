@@ -1,1 +1,0 @@
-terraform init -backend-config key="Paste your access key here or use an environment variable"
