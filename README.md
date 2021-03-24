@@ -91,6 +91,8 @@ If you've ran the pipeline you might notice that it failed to deploy the Seleniu
 
 To add it as an evironment for the pipeline we simply go to our Pipeline -> Environemnts -> TEST -> Add Resource -> Virtual Machines -> Select Linux as the OS and copy that script and SSH into our newly created VM this script will then register the VM as a resource to our pipeline.
 
+![Screenshot of adding a VM resource to azure pipelines](./screenshots/AzurePipeline_AddVMResource.png "a title")
+
 
 ### 6. Creating a Azure Log Anaytics Workspace
 For me the easiest way was to create this using the Azure Portal instead of the Azure CLI as I found it confusing. To create the Log Analytics workspace all you have to do is search for Log Analytics click on the Log Analytic workspaces and follow the wizard to create the workspace in your resource group.
@@ -101,7 +103,11 @@ To be able to collect custom logs from a VM or any service you will need to regi
 
 Now that the log agent is installed you can click on the Advanced settings to setup your custom log collector. Click on Data -> Custom Log -> Add +
 
-This will open a wizrd like setup you will need to upload a sample file of the selenium logs, lucky in the pipeline we publish that log as an artifact so we can grab it. In this screenshow you can see where to grab that log from the pipeline.
+![Screenshot of Custom Log Setup](./screenshots/LogAnalytics_AddCustomLogs.png "a title")
+
+This will open a wizrd like setup you will need to upload a sample file of the selenium logs, lucky in the pipeline we publish that log as an artifact so we can grab it. In this screenshot you can see where to grab that log from the pipeline.
+
+
 
 Select the delimiter for the file you have the option to use the Newline or you can use the date format at the start of the line to determine that is the new line. 
 
@@ -113,3 +119,5 @@ You will then need to include the paths on the VM where the log file or files ar
 To query your custom logs you can go to the Logs blade in Log Anaytics and close the main window that pops up this window has some basic queries that can be used.
 
 Now depending on what you named your Custom log in my case I named mine Test_CL we can then click on run and it should give all the results like below in the screen shot.
+
+![Screenshot of Custom Log Query in Log Analytics](./screenshots/LogAnalytics_SeleniumLogs.png "a title")
