@@ -1,5 +1,5 @@
 # Project 3 - Udacity Azure Dev Ops Nanodegree
-[![Build Status](https://dev.azure.com/caboose512/Udacity-Project-3/_apis/build/status/rfoltz.Udacity-DevOps-Project-3?branchName=master)](https://dev.azure.com/caboose512/Udacity-Project-3/_build/latest?definitionId=5&branchName=master)
+[![Build Status](https://dev.azure.com/caboose512/Udacity-Project-3/_apis/build/status/rfoltz.Udacity-DevOps-Project-3?branchName=master)](https://dev.azure.com/caboose512/Udacity-Project-3/_build/latest?definitionId=5&branchName=master)]
 
 ## Introduction
 This is the 3rd project for the Azure Dev Ops nano degree. We will be using an Azure DevOps CI/CD pipeline to deploy and test our API. The main steps are to deploy a VM and App service via terraform than kick off a pipeline step of testing our API using postman, next step is to run a suite of JMeter performance tests and we'll create an alert in the for the App Service in Azure monitor, we will then run our functional UI test suite from Selemium writen in Python to output a log file and ingest that into the Log Analytics of Azure.
@@ -105,7 +105,9 @@ Now that the log agent is installed you can click on the Advanced settings to se
 
 ![Screenshot of Custom Log Setup](./screenshots/LogAnalytics_AddCustomLogs.png "a title")
 
-This will open a wizrd like setup you will need to upload a sample file of the selenium logs, lucky in the pipeline we publish that log as an artifact so we can grab it. In this screenshot you can see where to grab that log from the pipeline.
+This will open a wizard like setup you will need to upload a sample file of the selenium logs, lucky in the pipeline we publish that log as an artifact so we can grab it. In this screenshot you can see where to grab that log from the pipeline.
+
+![Screenshot of adding a VM resource to azure pipelines](./screenshots/AzurePipeline_Artifacts.png "a title")
 
 
 
